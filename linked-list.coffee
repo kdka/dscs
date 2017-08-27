@@ -169,11 +169,13 @@ main = () ->
   llist = new LinkedList("ABCDE".split(''))
   console.log llist.toArray()
 
+  # test: find and findPrevious
   console.log "find D", llist.find "D"
   console.log "findPrevious A", llist.findPrevious "A"
   console.log "findPrevious D", llist.findPrevious "D"
   console.log "find X", llist.find "X"
 
+  # test: insertAfter and insertBefore
   console.log "insertAfter 'X', 'E'", llist.insertAfter "X", "E"
   console.log llist.toArray()
 
@@ -192,12 +194,46 @@ main = () ->
   console.log "insertBefore 'AA', 'BB'", llist.insertBefore "AA", "BB"
   console.log llist.toArray()
 
+  # test: remove keys
+  keys = llist.toArray()
+  for key in keys
+    console.log "remove: #{key}", llist.remove(key), llist.toArray()
+
   return
 
 
 # start
 if module is require.main
   main()
+
+# [ 'A', 'B', 'C', 'D', 'E' ]
+# find D Node { key: 'D', next: Node { key: 'E', next: null } }
+# findPrevious A null
+# findPrevious D Node {
+#   key: 'C',
+#   next: Node { key: 'D', next: Node { key: 'E', next: null } } }
+# find X null
+# insertAfter 'X', 'E' true
+# [ 'A', 'B', 'C', 'D', 'E', 'X' ]
+# insertAfter 'Y', 'B' true
+# [ 'A', 'B', 'Y', 'C', 'D', 'E', 'X' ]
+# insertAfter 'Z', 'T' false
+# [ 'A', 'B', 'Y', 'C', 'D', 'E', 'X' ]
+# insertBefore 'S', 'A' true
+# [ 'S', 'A', 'B', 'Y', 'C', 'D', 'E', 'X' ]
+# insertBefore 'T', 'D' true
+# [ 'S', 'A', 'B', 'Y', 'C', 'T', 'D', 'E', 'X' ]
+# insertBefore 'AA', 'BB' false
+# [ 'S', 'A', 'B', 'Y', 'C', 'T', 'D', 'E', 'X' ]
+# remove: S true [ 'A', 'B', 'Y', 'C', 'T', 'D', 'E', 'X' ]
+# remove: A true [ 'B', 'Y', 'C', 'T', 'D', 'E', 'X' ]
+# remove: B true [ 'Y', 'C', 'T', 'D', 'E', 'X' ]
+# remove: Y true [ 'C', 'T', 'D', 'E', 'X' ]
+# remove: C true [ 'T', 'D', 'E', 'X' ]
+# remove: T true [ 'D', 'E', 'X' ]
+# remove: D true [ 'E', 'X' ]
+# remove: E true [ 'X' ]
+# remove: X true []
 
 
 
