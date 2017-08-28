@@ -204,8 +204,37 @@ main = () ->
 if module is require.main
   main()
 
-
-
+# [ 'A', 'B', 'C', 'D', 'E' ]
+# find D Node {
+#   key: 'D',
+#   next: Node { key: 'E', next: Node { key: 'A', next: [Object] } } }
+# findPrevious A Node {
+#   key: 'E',
+#   next: Node { key: 'A', next: Node { key: 'B', next: [Object] } } }
+# findPrevious D Node {
+#   key: 'C',
+#   next: Node { key: 'D', next: Node { key: 'E', next: [Object] } } }
+# find X null
+# findPrevious X null
+# insertAfter 'X', 'E' true
+# [ 'A', 'B', 'C', 'D', 'E', 'X' ]
+# insertAfter 'Y', 'B' true
+# [ 'A', 'B', 'Y', 'C', 'D', 'E', 'X' ]
+# insertAfter 'AA', 'BB' false
+# insertBefore 'S', 'A' true
+# [ 'S', 'A', 'B', 'Y', 'C', 'D', 'E', 'X' ]
+# insertBefore 'T', 'D' true
+# [ 'S', 'A', 'B', 'Y', 'C', 'T', 'D', 'E', 'X' ]
+# insertBefore 'AA', 'BB' false
+# remove: S true 8 [ 'A', 'B', 'Y', 'C', 'T', 'D', 'E', 'X' ]
+# remove: A true 7 [ 'B', 'Y', 'C', 'T', 'D', 'E', 'X' ]
+# remove: B true 6 [ 'Y', 'C', 'T', 'D', 'E', 'X' ]
+# remove: Y true 5 [ 'C', 'T', 'D', 'E', 'X' ]
+# remove: C true 4 [ 'T', 'D', 'E', 'X' ]
+# remove: T true 3 [ 'D', 'E', 'X' ]
+# remove: D true 2 [ 'E', 'X' ]
+# remove: E true 1 [ 'X' ]
+# remove: X true 0 []
 
 
 
