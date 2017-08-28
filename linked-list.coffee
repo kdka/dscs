@@ -50,6 +50,9 @@ class LinkedList
   findPrevious: (key) ->    
     return null if @isEmpty()  
 
+    currentNode = @find key
+    return null if currentNode is null    
+
     currentNode = @head
     previousNode = null
     if currentNode.key is key
@@ -174,6 +177,7 @@ main = () ->
   console.log "findPrevious A", llist.findPrevious "A"
   console.log "findPrevious D", llist.findPrevious "D"
   console.log "find X", llist.find "X"
+  console.log "findPrevious X", llist.findPrevious "X"
 
   # test: insertAfter and insertBefore
   console.log "insertAfter 'X', 'E'", llist.insertAfter "X", "E"
