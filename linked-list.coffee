@@ -71,17 +71,12 @@ class LinkedList
   add: (key) ->
     node = new Node key
     if @isEmpty()
+      # Case where the list is empty
       @head = node
-      @length++
-      return true
-
-    # Scan through the list and return the last (current) node.
-    currentNode = @head
-    while currentNode.next
-      currentNode = currentNode.next
-
-    # Point the current node to the new node.
-    currentNode.next = node
+    else
+      # Case where the list is not empty
+      tailNode = @getTail()
+      tailNode.next = node
     @length++
     return true
 
@@ -145,12 +140,12 @@ class LinkedList
 
   # Return the tail node
   getTail: ->
-    if @isEmpty() then return @head
+    return @head if @isEmpty()
 
-    node = @head
-    while node.next
-      node = node.next
-    return node
+    currentNode = @head
+    while currentNode.next
+      currentNode = currentNode.next
+    return currentNode
 
   # Converts the collection of keys to an array.
   toArray: ->
@@ -198,10 +193,15 @@ main = () ->
   console.log "insertBefore 'AA', 'BB'", llist.insertBefore "AA", "BB"
   console.log llist.toArray()
 
+  # head and tail node
+  console.log "head", llist.getHead()
+  console.log "tail", llist.getTail()
+
   # test: remove keys
   keys = llist.toArray()
   for key in keys
-    console.log "remove: #{key}", llist.remove(key), llist.toArray()
+    console.log "remove: #{key}", llist.remove(key), 
+        llist.size(), llist.toArray()
 
   return
 

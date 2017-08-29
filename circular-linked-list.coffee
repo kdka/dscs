@@ -68,14 +68,8 @@ class CircularLinkedList
       node.next = @head
     else
       # Case where the list is not empty
-      # Scan through the list and return the last (current) node.
-      currentNode = @head
-      while currentNode.next isnt @head
-        currentNode = currentNode.next
-
-      # Point the current node to the new node.
-      # Point the new node to the head
-      currentNode.next = node
+      tailNode = @getTail()
+      tailNode.next = node
       node.next = @head
 
     @length++
@@ -144,12 +138,12 @@ class CircularLinkedList
 
     # Return the tail node
   getTail: ->
-    if @isEmpty() then return @head
+    return @head if @isEmpty()
 
-    node = @head
-    while node.next isnt @head
-      node = node.next
-    return node
+    currentNode = @head
+    while currentNode.next isnt @head
+      currentNode = currentNode.next
+    return currentNode
 
   # Converts the list into an array.
   toArray: ->
@@ -191,6 +185,10 @@ main = () ->
   console.log "insertBefore 'T', 'D'", cllist.insertBefore "T", "D"
   console.log cllist.toArray()
   console.log "insertBefore 'AA', 'BB'", cllist.insertBefore "AA", "BB"
+
+  # head and tail node
+  console.log "head", cllist.getHead()
+  console.log "tail", cllist.getTail()
 
   # test: remove keys
   keys = cllist.toArray()
